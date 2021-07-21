@@ -1,6 +1,13 @@
 import React from 'react';
+import Tag from './components/Tag';
+import Random from './components/Random';
+import './app.scss';
 
 const App = () => (
-  <h1>Hello World</h1>
+  <div className="container">
+    <h1>Fetch Gif App</h1>
+    <Random />
+    <Tag />
+  </div>
 );
 export default App;
