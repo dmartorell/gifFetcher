@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import defaultImg from '../assets/default-img.png';
+import useGif from './useGif';
 
 const Tag = () => {
-  const API_KEY = process.env.REACT_APP_API_KEY;
-
-  const [gif, setGif] = useState();
   const [tag, setTag] = useState('elephant');
-  const url = `http://api.giphy.com/v1/gifs/random?api_key=${API_KEY}`;
-
-  const fetchGif = async (searchName) => {
-    try {
-      const { data } = await axios.get(`${url}&tag=${searchName}`);
-      const imgSrc = data.data.images.downsized_large.url;
-      setGif(imgSrc);
-    } catch (e) {
-      throw new Error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchGif(tag);
-  }, [tag]);
-
-  const handleClick = () => {
-    setGif();
-    fetchGif(tag);
-  };
+  const [gif, fetchGif] = useGif(tag);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setGif();
     fetchGif(tag);
   };
 
@@ -48,7 +25,7 @@ const Tag = () => {
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={(e) => { setTag(e.target.value); }} />
       </form>
-      <button type="button" onClick={handleClick}>New Gif</button>
+      <button type="button" onClick={() => fetchGif(tag)}>New Gif</button>
     </div>
   );
 };
