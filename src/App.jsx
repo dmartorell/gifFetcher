@@ -4,10 +4,13 @@ import Random from './components/Random';
 import './app.scss';
 
 const App = () => (
-  <div className="container">
+  <div className="column-container">
     <h1>Fetch Gif App</h1>
-    <Random />
-    <Tag />
+    <br />
+    <div className="row-container">
+      <Random />
+      <Tag />
+    </div>
   </div>
 );
 export default App;
